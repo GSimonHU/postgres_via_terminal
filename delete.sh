@@ -11,11 +11,14 @@
 DB_NAME="todoDB"
 
 delete_todo() {
-echo "Todo removed"
+psql -qt $DB_NAME <<EOF
+DELETE FROM todo WHERE id=$1;
+EOF
+    echo "Todo removed"
 }
 
 delete_done() {
-echo "Done todos removed"
+    echo "Done todos removed"
 }
 
 main() {
