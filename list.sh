@@ -12,7 +12,7 @@
 #
 
 list_users() {
-    psql <<EOF
+    psql todoDB <<EOF
 SELECT * FROM "user"
 EOF
 }
