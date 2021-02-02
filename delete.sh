@@ -18,6 +18,9 @@ EOF
 }
 
 delete_done() {
+    psql -qt $DB_NAME <<EOF
+DELETE FROM todo WHERE done=true;
+EOF
     echo "Done todos removed"
 }
 
@@ -27,7 +30,7 @@ main() {
         delete_todo "$2"
     elif [[ "$1" == "delete-done" ]]
     then
-        delete_done "$2"
+        delete_done
     fi
 }
 
