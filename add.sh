@@ -10,13 +10,22 @@
 #    add.sh add-todo Paul "Make breakfast"
 #
 
+DB_NAME="todoDB"
+
 add_user() {
-    echo "User: $1"
+psql -qt $DB_NAME <<EOF
+INSERT INTO "user" (name)
+VALUES ('$1');
+EOF
+echo "User added"
 }
 
 add_todo() {
-    echo "User: $1"
-    echo "Todo: $2"
+    psql -qt $DB_NAME <<EOF
+    INSERT INTO todo (user_id, task)
+    VALUES ($1, '$2');
+EOF
+    echo "Todo added"
 }
 
 main() {
