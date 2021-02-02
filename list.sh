@@ -11,26 +11,28 @@
 #    list.sh list-user-todos "John Doe"
 #
 
+DB_NAME="todoDB"
+
 list_users() {
-    psql todoDB <<EOF
+    psql $DB_NAME <<EOF
 SELECT * FROM "user"
 EOF
 }
 
 list_todos() {
-    psql todoDB <<EOF
+    psql $DB_NAME <<EOF
 SELECT * FROM todo
 EOF
 }
 
 list_user_todos() {
     # echo "User: $1"
-    user_id="$(psql -qt todoDB <<EOF
+    user_id="$(psql -qt $DB_NAME <<EOF
 SELECT id FROM "user" WHERE name = '$1'
 EOF
 )"
 
-psql todoDB <<EOF
+psql $DB_NAME <<EOF
 SELECT * FROM todo WHERE user_id = $user_id
 EOF
 }
