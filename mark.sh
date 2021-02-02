@@ -7,13 +7,24 @@
 #    mark.sh mark-todo 32
 #    mark.sh unmark-todo 32
 #
+DB_NAME="todoDB"
 
 mark_todo(){
-
+psql -qt $DB_NAME <<EOF
+    UPDATE todo
+    SET done=true
+    WHERE id=$1;
+EOF
+    echo "Marked as done"
 }
 
 unmark_todo(){
-    
+psql -qt $DB_NAME <<EOF
+    UPDATE todo
+    SET done=false
+    WHERE id=$1;
+EOF
+    echo "Marked as *not* done"
 }
 
 main() {
