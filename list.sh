@@ -18,7 +18,9 @@ EOF
 }
 
 list_todos() {
-    echo "Your code"
+    psql todoDB <<EOF
+SELECT * FROM todo
+EOF
 }
 
 list_user_todos() {
