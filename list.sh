@@ -24,7 +24,15 @@ EOF
 }
 
 list_user_todos() {
-    echo "User: $1"
+    # echo "User: $1"
+    user_id="$(psql -qt todoDB <<EOF
+SELECT id FROM "user" WHERE name = '$1'
+EOF
+)"
+
+psql todoDB <<EOF
+SELECT * FROM todo WHERE user_id = $user_id
+EOF
 }
 
 main() {
